@@ -29,7 +29,7 @@ const Hero1 = () => {
   const starVariants = {
     twinkle: {
       opacity: [0, 1, 0], // Twinkle effect
-      scale: [1, 1.2, 1], // Slight scaling
+      scale: [1, 1.1, 1], // Slight scaling
       transition: {
         duration: 2, // Animation duration
         repeat: Infinity, // Repeat infinitely
@@ -37,8 +37,8 @@ const Hero1 = () => {
       },
     },
     float: {
-      y: [0, -20, 0], // Floating up and down
-      x: [0, 10, 0], // Floating left and right
+      y: [0, -10, 0], // Floating up and down
+      x: [0, 5, 0], // Floating left and right
       transition: {
         duration: 4, // Animation duration
         repeat: Infinity, // Repeat infinitely
@@ -48,9 +48,9 @@ const Hero1 = () => {
   };
 
   return (
-    <section className="relative bg-gradient-to-r from-purple-100 to-pink-100 py-8 overflow-hidden min-h-[50vh] flex items-center">
+    <section className="relative bg-gradient-to-r from-blue-100 to-indigo-100 py-8 overflow-hidden min-h-[calc(100vh-5rem)] flex items-center">
       {/* Animated Stars */}
-      {[...Array(20)].map((_, index) => (
+      {[...Array(15)].map((_, index) => (
         <motion.div
           key={index}
           className="absolute w-2 h-2 bg-yellow-300 rounded-full"
@@ -74,16 +74,18 @@ const Hero1 = () => {
         >
           {/* Heading */}
           <motion.h1
-            className="text-5xl md:text-6xl font-bold text-purple-900"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-indigo-900"
             variants={itemVariants}
+            style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}
           >
             Reading for all!
           </motion.h1>
 
           {/* Subheading */}
           <motion.p
-            className="text-2xl md:text-3xl text-gray-700"
+            className="text-xl md:text-2xl lg:text-3xl text-gray-800"
             variants={itemVariants}
+            style={{ fontSize: 'clamp(1rem, 3vw, 1.75rem)' }}
           >
             Discover the world of books and stories with Epic. Perfect for educators, families, and kids alike.
           </motion.p>
@@ -95,16 +97,16 @@ const Hero1 = () => {
           >
             <motion.a
               href="/educators"
-              className="bg-purple-600 text-white px-8 py-4 rounded-full font-bold text-xl hover:bg-purple-700 transition duration-300 shadow-lg"
-              whileHover={{ scale: 1.05 }} // Button hover animation
+              className="bg-indigo-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-indigo-700 transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105"
+              whileHover={{ scale: 1.1 }} // Increased hover effect
               whileTap={{ scale: 0.95 }} // Button click animation
             >
               For Educators
             </motion.a>
             <motion.a
               href="/families"
-              className="bg-pink-500 text-white px-8 py-4 rounded-full font-bold text-xl hover:bg-pink-600 transition duration-300 shadow-lg"
-              whileHover={{ scale: 1.05 }} // Button hover animation
+              className="bg-pink-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-pink-600 transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105"
+              whileHover={{ scale: 1.1 }} // Increased hover effect
               whileTap={{ scale: 0.95 }} // Button click animation
             >
               For Families
