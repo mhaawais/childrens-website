@@ -21,10 +21,8 @@ const Header = () => {
     setIsStoriesOpen(!isStoriesOpen);
   };
 
-  // Add type definition for the event parameter
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Implement your search functionality here
     console.log("Search Query:", searchQuery);
     alert(`You searched for: ${searchQuery}`);
   };
@@ -233,7 +231,7 @@ const Header = () => {
         )}
 
         {/* Navigation Links for Larger Screens */}
-        <nav className="hidden md:flex items-center space-x-6"> {/* Reduced space between items */}
+        <nav className="hidden md:flex items-center space-x-6">
           <a
             href="/"
             className="text-white hover:text-yellow-300 font-bold text-lg"
@@ -241,15 +239,22 @@ const Header = () => {
             Home
           </a>
           <div
-            className="relative group"
+            className="relative"
             onMouseEnter={() => setIsGamesOpen(true)}
             onMouseLeave={() => setIsGamesOpen(false)}
           >
-            <button className="text-white hover:text-yellow-300 font-bold text-lg flex items-center">
+            <button
+              className="text-white hover:text-yellow-300 font-bold text-lg flex items-center"
+              onClick={toggleGames} // Toggle dropdown on click
+            >
               Games <FaChevronDown className="ml-1" />
             </button>
             {isGamesOpen && (
-              <div className="absolute bg-white mt-2 py-2 w-48 rounded-lg shadow-lg">
+              <div
+                className="absolute bg-white mt-2 py-2 w-48 rounded-lg shadow-lg"
+                onMouseEnter={() => setIsGamesOpen(true)} // Keep dropdown open when hovered
+                onMouseLeave={() => setIsGamesOpen(false)} // Close dropdown when mouse leaves
+              >
                 <a
                   href="/games/puzzle"
                   className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
@@ -278,15 +283,22 @@ const Header = () => {
             )}
           </div>
           <div
-            className="relative group"
+            className="relative"
             onMouseEnter={() => setIsStoriesOpen(true)}
             onMouseLeave={() => setIsStoriesOpen(false)}
           >
-            <button className="text-white hover:text-yellow-300 font-bold text-lg flex items-center">
+            <button
+              className="text-white hover:text-yellow-300 font-bold text-lg flex items-center"
+              onClick={toggleStories} // Toggle dropdown on click
+            >
               Stories by Age <FaChevronDown className="ml-1" />
             </button>
             {isStoriesOpen && (
-              <div className="absolute bg-white mt-2 py-2 w-48 rounded-lg shadow-lg">
+              <div
+                className="absolute bg-white mt-2 py-2 w-48 rounded-lg shadow-lg"
+                onMouseEnter={() => setIsStoriesOpen(true)} // Keep dropdown open when hovered
+                onMouseLeave={() => setIsStoriesOpen(false)} // Close dropdown when mouse leaves
+              >
                 <a
                   href="/stories/kids-poems"
                   className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
