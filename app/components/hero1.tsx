@@ -48,7 +48,23 @@ const Hero1 = () => {
   };
 
   return (
-    <section className="relative bg-gradient-to-r from-blue-100 to-indigo-100 py-8 overflow-hidden min-h-[calc(100vh-5rem)] flex items-center">
+    <section className="relative bg-gradient-to-r from-blue-100 to-indigo-100 py-8 overflow-hidden min-h-[34vh] flex items-center">
+      {/* Background Image */}
+      <motion.div
+        className="absolute inset-0 w-full h-full z-0"
+        variants={imageVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <img
+          src="https://www.abcbooksmarket.com/image/cache/catalog/Books/Shanti/Shanti25-500x500.jpg"
+          alt="Kids Reading"
+          className="w-full h-full object-cover opacity-20" // Reduced opacity
+        />
+        {/* Subtle Overlay to Improve Readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-100/50 to-indigo-100/50"></div>
+      </motion.div>
+
       {/* Animated Stars */}
       {[...Array(15)].map((_, index) => (
         <motion.div
@@ -64,10 +80,10 @@ const Hero1 = () => {
       ))}
 
       {/* Content */}
-      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between relative z-10">
-        {/* Text Content (Left Side) */}
+      <div className="container mx-auto px-4 flex flex-col items-center justify-center text-center relative z-10">
+        {/* Text Content */}
         <motion.div
-          className="md:w-1/2 text-center md:text-left space-y-6"
+          className="w-full max-w-2xl space-y-6"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -92,7 +108,7 @@ const Hero1 = () => {
 
           {/* Call-to-Action Buttons */}
           <motion.div
-            className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 justify-center md:justify-start"
+            className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 justify-center"
             variants={itemVariants}
           >
             <motion.a
@@ -112,20 +128,6 @@ const Hero1 = () => {
               For Families
             </motion.a>
           </motion.div>
-        </motion.div>
-
-        {/* Image (Right Side) */}
-        <motion.div
-          className="md:w-[45%] mt-8 md:mt-0"
-          variants={imageVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <img
-            src="https://www.abcbooksmarket.com/image/cache/catalog/Books/Shanti/Shanti25-500x500.jpg" // Replace with a playful image
-            alt="Kids Reading"
-            className="w-full h-auto rounded-lg shadow-2xl"
-          />
         </motion.div>
       </div>
     </section>

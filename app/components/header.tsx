@@ -5,16 +5,12 @@ import { FaBars, FaTimes, FaChevronDown, FaSearch } from "react-icons/fa"; // Im
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isGamesOpen, setIsGamesOpen] = useState(false);
   const [isStoriesOpen, setIsStoriesOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  };
-
-  const toggleGames = () => {
-    setIsGamesOpen(!isGamesOpen);
   };
 
   const toggleStories = () => {
@@ -25,6 +21,10 @@ const Header = () => {
     e.preventDefault();
     console.log("Search Query:", searchQuery);
     alert(`You searched for: ${searchQuery}`);
+  };
+
+  const toggleSearch = () => {
+    setIsSearchExpanded(!isSearchExpanded);
   };
 
   return (
@@ -39,25 +39,120 @@ const Header = () => {
           />
         </a>
 
-        {/* Search Bar for All Screens */}
-        <form
-          onSubmit={handleSearch}
-          className="hidden md:flex items-center bg-white rounded-full overflow-hidden mx-4 flex-1 max-w-md"
-        >
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="px-4 py-2 w-full focus:outline-none text-sm md:text-base"
-          />
-          <button
-            type="submit"
-            className="bg-yellow-400 p-2 hover:bg-yellow-500 transition duration-300"
+        {/* Navigation Links for Larger Screens */}
+        <nav className="hidden md:flex items-center space-x-8 ml-4">
+          <a
+            href="/"
+            className="text-white hover:text-yellow-300 font-bold text-lg"
           >
-            <FaSearch className="text-purple-800" />
-          </button>
-        </form>
+            Home
+          </a>
+          <div
+            className="relative"
+            onMouseEnter={() => setIsStoriesOpen(true)}
+            onMouseLeave={() => setIsStoriesOpen(false)}
+          >
+            <button
+              className="text-white hover:text-yellow-300 font-bold text-lg flex items-center"
+              onClick={toggleStories} // Toggle dropdown on click
+            >
+              Stories by Age <FaChevronDown className="ml-1" />
+            </button>
+            {isStoriesOpen && (
+              <div
+                className="absolute bg-white mt-2 py-2 w-48 rounded-lg shadow-lg"
+                onMouseEnter={() => setIsStoriesOpen(true)} // Keep dropdown open when hovered
+                onMouseLeave={() => setIsStoriesOpen(false)} // Close dropdown when mouse leaves
+              >
+                <a
+                  href="/stories/kids-poems"
+                  className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
+                >
+                  Kids Poems
+                </a>
+                <a
+                  href="/stories/0-3"
+                  className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
+                >
+                  0-3 years
+                </a>
+                <a
+                  href="/stories/3-6"
+                  className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
+                >
+                  3-6 years
+                </a>
+                <a
+                  href="/stories/6-9"
+                  className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
+                >
+                  6-9 years
+                </a>
+                <a
+                  href="/stories/9-12"
+                  className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
+                >
+                  9-12 years
+                </a>
+              </div>
+            )}
+          </div>
+          <a
+            href="/popular-stories"
+            className="text-white hover:text-yellow-300 font-bold text-lg"
+          >
+            Popular Stories
+          </a>
+          <a
+            href="/holiday-stories"
+            className="text-white hover:text-yellow-300 font-bold text-lg"
+          >
+            Holiday Stories
+          </a>
+          <a
+            href="/parents"
+            className="text-white hover:text-yellow-300 font-bold text-lg"
+          >
+            For Parents
+          </a>
+        </nav>
+
+        {/* Search Bar for Larger Screens */}
+        <div className="hidden md:flex items-center">
+          {isSearchExpanded ? (
+            <form
+              onSubmit={handleSearch}
+              className="flex items-center bg-white rounded-full overflow-hidden ml-4 transition-all duration-300"
+            >
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="px-4 py-2 w-full focus:outline-none text-sm md:text-base"
+              />
+              <button
+                type="submit"
+                className="bg-yellow-400 p-2 hover:bg-yellow-500 transition duration-300"
+              >
+                <FaSearch className="text-purple-800" />
+              </button>
+              <button
+                onClick={toggleSearch}
+                className="text-purple-800 p-2 hover:bg-gray-100 rounded-full ml-2"
+              >
+                <FaTimes className="w-5 h-5" />
+              </button>
+            </form>
+          ) : (
+            <button
+              onClick={toggleSearch}
+              className="text-white focus:outline-none ml-4"
+            >
+              <FaSearch className="w-6 h-8" />
+            </button>
+          )}
+        </div>
 
         {/* Hamburger Menu Icon for Mobile */}
         <div className="md:hidden">
@@ -120,46 +215,6 @@ const Header = () => {
               </a>
               <div className="relative">
                 <button
-                  onClick={toggleGames}
-                  className="text-white hover:text-yellow-300 font-bold text-lg flex items-center"
-                >
-                  Games <FaChevronDown className="ml-1" />
-                </button>
-                {isGamesOpen && (
-                  <div className="mt-2 space-y-2 text-center">
-                    <a
-                      href="/games/puzzle"
-                      className="block text-white hover:text-yellow-300"
-                      onClick={toggleMenu} // Close menu when a link is clicked
-                    >
-                      Puzzle
-                    </a>
-                    <a
-                      href="/games/quiz"
-                      className="block text-white hover:text-yellow-300"
-                      onClick={toggleMenu} // Close menu when a link is clicked
-                    >
-                      Quiz
-                    </a>
-                    <a
-                      href="/games/crossword"
-                      className="block text-white hover:text-yellow-300"
-                      onClick={toggleMenu} // Close menu when a link is clicked
-                    >
-                      Crossword
-                    </a>
-                    <a
-                      href="/games/ugly-duckling"
-                      className="block text-white hover:text-yellow-300"
-                      onClick={toggleMenu} // Close menu when a link is clicked
-                    >
-                      Ugly Duckling
-                    </a>
-                  </div>
-                )}
-              </div>
-              <div className="relative">
-                <button
                   onClick={toggleStories}
                   className="text-white hover:text-yellow-300 font-bold text-lg flex items-center"
                 >
@@ -206,18 +261,18 @@ const Header = () => {
                 )}
               </div>
               <a
-                href="/videos"
+                href="/popular-stories"
                 className="text-white hover:text-yellow-300 font-bold text-lg"
                 onClick={toggleMenu} // Close menu when a link is clicked
               >
-                Videos
+                Popular Stories
               </a>
               <a
-                href="/activities"
+                href="/holiday-stories"
                 className="text-white hover:text-yellow-300 font-bold text-lg"
                 onClick={toggleMenu} // Close menu when a link is clicked
               >
-                Activities
+                Holiday Stories
               </a>
               <a
                 href="/parents"
@@ -229,133 +284,6 @@ const Header = () => {
             </nav>
           </div>
         )}
-
-        {/* Navigation Links for Larger Screens */}
-        <nav className="hidden md:flex items-center space-x-6">
-          <a
-            href="/"
-            className="text-white hover:text-yellow-300 font-bold text-lg"
-          >
-            Home
-          </a>
-          <div
-            className="relative"
-            onMouseEnter={() => setIsGamesOpen(true)}
-            onMouseLeave={() => setIsGamesOpen(false)}
-          >
-            <button
-              className="text-white hover:text-yellow-300 font-bold text-lg flex items-center"
-              onClick={toggleGames} // Toggle dropdown on click
-            >
-              Games <FaChevronDown className="ml-1" />
-            </button>
-            {isGamesOpen && (
-              <div
-                className="absolute bg-white mt-2 py-2 w-48 rounded-lg shadow-lg"
-                onMouseEnter={() => setIsGamesOpen(true)} // Keep dropdown open when hovered
-                onMouseLeave={() => setIsGamesOpen(false)} // Close dropdown when mouse leaves
-              >
-                <a
-                  href="/games/puzzle"
-                  className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
-                >
-                  Puzzle
-                </a>
-                <a
-                  href="/games/quiz"
-                  className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
-                >
-                  Quiz
-                </a>
-                <a
-                  href="/games/crossword"
-                  className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
-                >
-                  Crossword
-                </a>
-                <a
-                  href="/games/ugly-duckling"
-                  className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
-                >
-                  Ugly Duckling
-                </a>
-              </div>
-            )}
-          </div>
-          <div
-            className="relative"
-            onMouseEnter={() => setIsStoriesOpen(true)}
-            onMouseLeave={() => setIsStoriesOpen(false)}
-          >
-            <button
-              className="text-white hover:text-yellow-300 font-bold text-lg flex items-center"
-              onClick={toggleStories} // Toggle dropdown on click
-            >
-              Stories by Age <FaChevronDown className="ml-1" />
-            </button>
-            {isStoriesOpen && (
-              <div
-                className="absolute bg-white mt-2 py-2 w-48 rounded-lg shadow-lg"
-                onMouseEnter={() => setIsStoriesOpen(true)} // Keep dropdown open when hovered
-                onMouseLeave={() => setIsStoriesOpen(false)} // Close dropdown when mouse leaves
-              >
-                <a
-                  href="/stories/kids-poems"
-                  className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
-                >
-                  Kids Poems
-                </a>
-                <a
-                  href="/stories/0-3"
-                  className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
-                >
-                  0-3 years
-                </a>
-                <a
-                  href="/stories/3-6"
-                  className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
-                >
-                  3-6 years
-                </a>
-                <a
-                  href="/stories/6-9"
-                  className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
-                >
-                  6-9 years
-                </a>
-                <a
-                  href="/stories/9-12"
-                  className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
-                >
-                  9-12 years
-                </a>
-              </div>
-            )}
-          </div>
-          <a
-            href="/videos"
-            className="text-white hover:text-yellow-300 font-bold text-lg"
-          >
-            Videos
-          </a>
-          <a
-            href="/activities"
-            className="text-white hover:text-yellow-300 font-bold text-lg"
-          >
-            Activities
-          </a>
-          <a
-            href="/parents"
-            className="text-white hover:text-yellow-300 font-bold text-lg"
-          >
-            For Parents
-          </a>
-        </nav>
-
-        {/* Call-to-Action Button */}
-        <button className="hidden md:inline-flex items-center bg-yellow-400 text-purple-800 px-6 py-2 rounded-full font-bold hover:bg-yellow-500 transition duration-300 shadow-lg">
-          Play Now
-        </button>
       </div>
     </header>
   );
