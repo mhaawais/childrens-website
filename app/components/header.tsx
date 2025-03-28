@@ -6,6 +6,7 @@ import { FaBars, FaTimes, FaChevronDown, FaSearch } from "react-icons/fa"; // Im
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isStoriesOpen, setIsStoriesOpen] = useState(false);
+  const [isCodeStoriesOpen, setIsCodeStoriesOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
 
@@ -15,6 +16,10 @@ const Header = () => {
 
   const toggleStories = () => {
     setIsStoriesOpen(!isStoriesOpen);
+  };
+
+  const toggleCodeStories = () => {
+    setIsCodeStoriesOpen(!isCodeStoriesOpen);
   };
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -103,12 +108,44 @@ const Header = () => {
           >
             Popular Stories
           </a>
-          <a
-            href="/holiday-stories"
-            className="text-white hover:text-yellow-300 font-bold text-lg"
+          <div
+            className="relative"
+            onMouseEnter={() => setIsCodeStoriesOpen(true)}
+            onMouseLeave={() => setIsCodeStoriesOpen(false)}
           >
-            Holiday Stories
-          </a>
+            <button
+              className="text-white hover:text-yellow-300 font-bold text-lg flex items-center"
+              onClick={toggleCodeStories}
+            >
+              Code Stories <FaChevronDown className="ml-1" />
+            </button>
+            {isCodeStoriesOpen && (
+              <div
+                className="absolute bg-white mt-2 py-2 w-48 rounded-lg shadow-lg"
+                onMouseEnter={() => setIsCodeStoriesOpen(true)}
+                onMouseLeave={() => setIsCodeStoriesOpen(false)}
+              >
+                <a
+                  href="/code-stories/html"
+                  className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
+                >
+                  HTML Stories
+                </a>
+                <a
+                  href="/code-stories/css"
+                  className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
+                >
+                  CSS Stories
+                </a>
+                <a
+                  href="/code-stories/javascript"
+                  className="block px-4 py-2 text-purple-800 hover:bg-purple-100"
+                >
+                  JavaScript Stories
+                </a>
+              </div>
+            )}
+          </div>
           <a
             href="/parents"
             className="text-white hover:text-yellow-300 font-bold text-lg"
@@ -267,13 +304,39 @@ const Header = () => {
               >
                 Popular Stories
               </a>
-              <a
-                href="/holiday-stories"
-                className="text-white hover:text-yellow-300 font-bold text-lg"
-                onClick={toggleMenu} // Close menu when a link is clicked
-              >
-                Holiday Stories
-              </a>
+              <div className="relative">
+                <button
+                  onClick={toggleCodeStories}
+                  className="text-white hover:text-yellow-300 font-bold text-lg flex items-center"
+                >
+                  Code Stories <FaChevronDown className="ml-1" />
+                </button>
+                {isCodeStoriesOpen && (
+                  <div className="mt-2 space-y-2 text-center">
+                    <a
+                      href="/code-stories/html"
+                      className="block text-white hover:text-yellow-300"
+                      onClick={toggleMenu}
+                    >
+                      HTML Stories
+                    </a>
+                    <a
+                      href="/code-stories/css"
+                      className="block text-white hover:text-yellow-300"
+                      onClick={toggleMenu}
+                    >
+                      CSS Stories
+                    </a>
+                    <a
+                      href="/code-stories/javascript"
+                      className="block text-white hover:text-yellow-300"
+                      onClick={toggleMenu}
+                    >
+                      JavaScript Stories
+                    </a>
+                  </div>
+                )}
+              </div>
               <a
                 href="/parents"
                 className="text-white hover:text-yellow-300 font-bold text-lg"

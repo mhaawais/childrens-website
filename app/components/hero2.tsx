@@ -39,7 +39,7 @@ const Hero2 = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold text-center mb-8">Trending Stories</h2>
+      <h2 className="text-3xl font-bold text-center mb-8 text-purple-900">Trending Stories</h2>
       {trendingStories.map((category, index) => (
         <div key={index} className="mb-12">
           <h3 className="text-2xl font-semibold mb-4">{category.category}</h3>
